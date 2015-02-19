@@ -1,15 +1,20 @@
 class Chisel
 
   def parse(message)
-    if message.include?("### ")
+    
+    if message.start_with?("### ")
       parse_header_three(message)
-    elsif message.include?("## ")
+    elsif message.start_with?("## ")
       parse_header_two(message)
     elsif message.start_with?("#")
       parse_header_one(message)
     else
       parse_paragraph(message)
     end
+  end
+
+  def join_strings(array)
+    array.join("\n")
   end
 
   def separate_string(string)

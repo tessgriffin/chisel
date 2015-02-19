@@ -84,5 +84,19 @@ class ChiselTest < Minitest::Test
     assert_equal ["# My Life in Desserts", "## Chapter 1: The Beginning"], output
   end
 
+  def test_it_can_join_separated_strings
+    chisel = Chisel.new
+    array = ["# My Life in Desserts", "## Chapter 1: The Beginning"]
+    output = chisel.join_strings(array)
+    assert_equal "# My Life in Desserts\n## Chapter 1: The Beginning", output
+  end
+
+  def test_it_parses_multiple_lines
+    chisel = Chisel.new
+    string = "# My Life in Desserts\n## Chapter 1: The Beginning"
+    output = chisel.parse(string)
+    assert_equal "<h1>My Life in Desserts</h1>\n<h2>Chapter 1: The Beginning</h2>", output        
+  end
+
 
 end
