@@ -91,12 +91,20 @@ class ChiselTest < Minitest::Test
     assert_equal "# My Life in Desserts\n## Chapter 1: The Beginning", output
   end
 
-  def test_it_parses_multiple_lines
+  def test_it_parses_two_multiple_lines
     chisel = Chisel.new
     string = "# My Life in Desserts\n## Chapter 1: The Beginning"
     output = chisel.parse(string)
     assert_equal "<h1>My Life in Desserts</h1>\n<h2>Chapter 1: The Beginning</h2>", output        
   end
+
+  def test_it_parses_multiple_lines
+    chisel = Chisel.new
+    string = File.read("./sample_1.md")
+    output = chisel.parse(string)
+    assert_equal "<h1>My Life in Desserts</h1>\n<h5>Chapter 1: The Beginning</h5>\n<p>\nYou just *have* to try the cheesecake, he said. Ever since it appeared\nin **Food & Wine** this place has been packed every night.\n</p>", output        
+  end
+
 
 
 end

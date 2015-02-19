@@ -1,16 +1,23 @@
 class Chisel
 
   def parse(message)
-    
-    if message.start_with?("### ")
-      parse_header_three(message)
-    elsif message.start_with?("## ")
-      parse_header_two(message)
-    elsif message.start_with?("#")
-      parse_header_one(message)
-    else
-      parse_paragraph(message)
+    separated_string = separate_string(message)
+    markdown_array = separated_string.map do |string|
+      if string.start_with?("##### ")
+        parse_header_five(string)
+      elsif string.start_with?("#### ")
+        parse_header_four(string)
+      elsif string.start_with?("### ")
+        parse_header_three(string)
+      elsif string.start_with?("## ")
+        parse_header_two(string)
+      elsif string.start_with?("#")
+        parse_header_one(string)
+      else
+        parse_paragraph(string)
+      end
     end
+    join_strings(markdown_array)
   end
 
   def join_strings(array)
@@ -18,8 +25,13 @@ class Chisel
   end
 
   def separate_string(string)
-    string.split("\n")
-
+    string.split(/^\n/).flat_map do |line|
+      if line.include?("#")
+        line.split("\n")
+      else
+        line
+      end
+    end
   end
 
   def parse_header_one(string)
@@ -48,4 +60,5 @@ class Chisel
 end
 
 chisel = Chisel.new
-puts chisel.parse("### This is a header")
+puts chisel.parse("### This is a header
+  this is a paragraph")
