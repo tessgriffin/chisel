@@ -1,9 +1,16 @@
 class Chisel
 
   def parse(message)
-    if message.start_with?("#")
+    if message.include?("### ")
+      parse_header_three(message)
+    elsif message.include?("## ")
+      parse_header_two(message)
+    elsif message.start_with?("#")
       parse_header_one(message)
+    else
+      parse_paragraph(message)
     end
+
   end
 
   def parse_header_one(string)
@@ -30,3 +37,6 @@ class Chisel
     "<p>\n" + string + "\n</p>"
   end
 end
+
+chisel = Chisel.new
+puts chisel.parse("### This is a header")

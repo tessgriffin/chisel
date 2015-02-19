@@ -49,11 +49,32 @@ class ChiselTest < Minitest::Test
     assert_equal "<p>\nThis is the paragraph\n</p>", output
   end
 
-  def test_it_can_parse_one_line_with_header
+  def test_it_can_parse_one_line_with_header_one
     chisel = Chisel.new
     string = "# My Life in Desserts"
     output = chisel.parse(string)
     assert_equal "<h1>My Life in Desserts</h1>", output
+  end
+
+  def test_it_can_parse_one_line_with_header_two
+    chisel = Chisel.new
+    string = "## My Life in Desserts"
+    output = chisel.parse(string)
+    assert_equal "<h2>My Life in Desserts</h2>", output
+  end
+
+  def test_it_can_parse_one_line_with_header_three
+    chisel = Chisel.new
+    string = "### My Life in Desserts"
+    output = chisel.parse(string)
+    assert_equal "<h3>My Life in Desserts</h3>", output
+  end
+
+  def test_it_can_parse_a_paragraph_when_read_in
+    chisel = Chisel.new
+    string = "My Paragraph"
+    output = chisel.parse(string)
+    assert_equal "<p>\nMy Paragraph\n</p>", output
   end
 
 
