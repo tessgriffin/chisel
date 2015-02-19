@@ -77,5 +77,12 @@ class ChiselTest < Minitest::Test
     assert_equal "<p>\nMy Paragraph\n</p>", output
   end
 
+  def test_it_can_separate_a_string_by_line_breaks
+    chisel = Chisel.new
+    string = "# My Life in Desserts\n## Chapter 1: The Beginning"
+    output = chisel.separate_string(string)
+    assert_equal ["# My Life in Desserts", "## Chapter 1: The Beginning"], output
+  end
+
 
 end

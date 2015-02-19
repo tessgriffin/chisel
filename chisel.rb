@@ -10,6 +10,10 @@ class Chisel
     else
       parse_paragraph(message)
     end
+  end
+
+  def separate_string(string)
+    string.split("\n")
 
   end
 
