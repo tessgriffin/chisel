@@ -57,8 +57,12 @@ class Chisel
   def parse_paragraph(string)
     "<p>\n" + string + "\n</p>"
   end
-end
 
-chisel = Chisel.new
-puts chisel.parse("### This is a header
-  this is a paragraph")
+  def parse_em(string)
+    "<em>" + string.delete("*") + "</em>"
+  end
+
+  def parse_strong(string)
+    "<strong>" + string.delete("*") + "</strong>"
+  end
+end

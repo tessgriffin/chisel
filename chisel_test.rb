@@ -49,6 +49,28 @@ class ChiselTest < Minitest::Test
     assert_equal "<p>\nThis is the paragraph\n</p>", output
   end
 
+  def test_it_can_parse_em
+    chisel = Chisel.new
+    string = "*string*"
+    output = chisel.parse_em(string)
+    assert_equal "<em>string</em>", output
+  end
+
+  def test_it_can_parse_strong
+    chisel = Chisel.new
+    string = "**string**"
+    output = chisel.parse_strong(string)
+    assert_equal "<strong>string</strong>", output
+  end  
+
+  def test_it_can_parse_strong_in_parse
+    skip
+    chisel = Chisel.new
+    string = "**string**"
+    output = chisel.parse(string)
+    assert_equal "<strong>string</strong>", output
+  end 
+
   def test_it_can_parse_one_line_with_header_one
     chisel = Chisel.new
     string = "# My Life in Desserts"
@@ -102,9 +124,7 @@ class ChiselTest < Minitest::Test
     chisel = Chisel.new
     string = File.read("./sample_1.md")
     output = chisel.parse(string)
-    assert_equal "<h1>My Life in Desserts</h1>\n<h5>Chapter 1: The Beginning</h5>\n<p>\nYou just *have* to try the cheesecake, he said. Ever since it appeared\nin **Food & Wine** this place has been packed every night.\n</p>", output        
+    assert_equal "<h1>My Life in Desserts</h1>\n<h5>Chapter 1: The Beginning</h5>\n<p>\nYou just *have* to try the cheesecake, he said. Ever since it appeared\nin **Food & Wine** this place\nhas been packed every night.\n</p>", output        
   end
-
-
 
 end
